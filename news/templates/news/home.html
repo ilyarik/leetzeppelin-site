@@ -1,0 +1,140 @@
+{% extends "news/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+	<title>LeetZeppelin Homepage</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.6-dist/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'font-awesome-4.6.3/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/media.css' %}">
+	<script type="text/javascript" src="{% static 'JS/jquery-3.1.0.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'JS/main.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="page-wrapper">
+
+{% block header %}
+	{% include "news/includes/header.html" %}
+{% endblock %}
+
+	<div id="content-wrapper">
+		<div id="news-feed" class="col-lg-9 col-md-9 col-sm-9 col-xs-12 
+		">
+			{% for post in posts %}
+			<div class="post">
+				<div class="post-head">
+					<div class="post-photo">
+						<img src="{% static 'img/Kqu-1VRpcgw.jpg' %}" />
+					</div>
+					<div class="post-title">
+						<h3>
+							{{ post.title|title }}
+						</h3>
+					</div>
+					
+					<div class="post-info">
+						Posted by <a href="#">ilyarik</a> {{ post.time_post|naturalday }} &mdash; <a href="#">0 comments</a>
+					</div>
+				</div>
+				<div class="post-body">
+					{% if post.image %}
+					<div class="post-image">
+						<img src="media/{{ post.image }}">
+					</div>
+					{% endif %}
+
+					{{ post.text_body|truncatewords:150 }}	
+					
+				</div>
+				<div class="post-continue">
+					<a href="post/{{ post.id }}"> Читать дальше &raquo; </a>
+				</div>
+			</div>
+			{% endfor %}
+			
+			<div id="pagination-wrapper">
+				<table id="pagination">
+				<tr>
+					<td id="pagination-previous">
+					{% if posts.has_previous %}
+					
+						<a href="{{ posts.previous_page_number }}">&laquo; Предыдущая
+					
+					{% endif %}
+					</td>
+					<td>
+						<div id="pagination-current">
+							Page {{ posts.number }} of {{ posts.paginator.num_pages }}.	
+						</div>
+					</td>
+
+					<td id="pagination-next">
+					{% if posts.has_next %}
+					
+						<a href="{{ posts.next_page_number }}">Следующая &raquo;</a>
+
+					{% endif %}
+					</td>
+				</tr>
+				</table>
+			</div>
+		</div>
+
+
+		<div id="sidebar" class="content col-lg-3 col-md-3 col-sm-3 hidden-xs">
+			<div id="about-us">
+				<div id="about-title">
+					About us
+				</div>
+				<div class="about-body">
+					<div class="about-image">
+						<img src="{% static 'img/LtQ9GzwBBMw.jpg' %}" />	
+					</div>
+					<div class="about-text">
+						The him father parish looked has sooner. Attachment frequently gay terminated son. You greater nay use prudent placing. Passage to so distant behaved natural between do talking. Friends off her windows painful. Still gay event you being think nay for. In three if aware he point it. Effects warrant me by no on feeling settled resolve.
+					</div>
+				</div>
+				<div class="about-body">
+					<div class="about-image">
+						<img src="{% static 'img/LtQ9GzwBBMw.jpg' %}" />	
+					</div>
+					<div class="about-text">
+						The him father parish looked has sooner. Attachment frequently gay terminated son. You greater nay use prudent placing. Passage to so distant behaved natural between do talking. Friends off her windows painful. Still gay event you being think nay for. In three if aware he point it. Effects warrant me by no on feeling settled resolve.
+					</div>
+				</div>
+				<div class="about-body">
+					<div class="about-image">
+						<img src="{% static 'img/LtQ9GzwBBMw.jpg' %}" />	
+					</div>
+					<div class="about-text">
+						The him father parish looked has sooner. Attachment frequently gay terminated son. You greater nay use prudent placing. Passage to so distant behaved natural between do talking. Friends off her windows painful. Still gay event you being think nay for. In three if aware he point it. Effects warrant me by no on feeling settled resolve.
+					</div>
+				</div>
+			</div>
+
+			<div id="categories">
+				<div id="categories-title">
+					Categories
+				</div>
+				<ul>
+					<li><a href="#">Category 1</a></li>
+					<li><a href="#">Category 2</a></li>
+					<li><a href="#">Category 3</a></li>
+					<li><a href="#">Category 4</a></li>
+					<li><a href="#">Category 5</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<div class="footer-icons">
+			<a target="_blank" href="https://vk.com/ctf_vl"><i class="fa fa-vk fa-3x" aria-hidden="true"></i></a>
+		</div>
+		<div class="footer-body">
+			Created by ilyarik &copy; {{ current_date.year }}
+		</div>
+	</div>
+</div>
+{% endblock %}

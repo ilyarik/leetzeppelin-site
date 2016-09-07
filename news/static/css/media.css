@@ -1,0 +1,29 @@
+@media screen and (max-width: 730px) {
+	.sitemap-marks {
+		margin-left: 14px;
+	}
+    .menu-button {
+    	font: 13px Arial;
+    }
+    .logo-area {
+    	margin-left: 20px;
+    	width: 230px;
+    }
+    .logo-area h2 {
+    	font: 30px Arial;
+    }
+    .logo-area h5 {
+    	font: 14px Arial;
+    }
+    .search-field {
+    	margin-right: 20px;
+    	width:140px;
+    }
+    .search-field input[type="search"] {
+    	width: 100px;
+    }
+    .search-field button[type="submit"] {
+    	width: 20px;
+    }
+
+}

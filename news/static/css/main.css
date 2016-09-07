@@ -1,0 +1,553 @@
+@font-face {
+    font-family: "Lucida Grande"; /* Гарнитура шрифта */
+    src: url("../fonts/lucida grande.ttf"); /* Путь к файлу со шрифтом */
+}
+
+* {
+	font-family: Arial, sans-serif;
+	box-sizing: border-box;
+}
+
+html {
+	min-height: 100%;
+}
+
+body {
+	background: #2d3844;
+	z-index: 0;
+	height: 100%;
+	position: absolute;
+	width: 100%;
+}
+
+a:focus, button:focus {
+	outline: none;
+}
+
+#page-wrapper {	
+	display: flex;
+	flex-direction: column;
+  	height: 100%;
+  	position: relative;
+}
+
+#header {
+	position: fixed;
+	height: 230px;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+}
+
+.sitemap {
+	height: 30px;
+	width: 100%;
+	background: #2b2b2b;
+}
+
+.sitemap-marks {
+	margin-left: 60px;
+	padding-top: 7px;
+	width: 300px;
+	font-size: 13px;
+	display: inline-block;
+}
+
+.sitemap-marks > a {
+	color: #666;
+	border-right: 1px solid #595959;
+	width: 80px;
+	display: inline-block;
+	text-align: center;
+}
+
+.sitemap-marks > a:last-child {
+	color: #666;
+	width: 70px;
+	display: inline-block;
+	text-align: center;
+}
+
+.user-buttons {
+	float: right;
+	margin-right: 60px;
+	padding-top: 7px;
+	width: 300px;
+	font-size: 13px;
+	color: #666;
+	display: inline-block;
+}
+
+.user-button {
+	float: right;
+	display: inline-block;
+	width: 100px;
+	border-left: 1px solid #595959;
+	line-height: 100%;
+	padding-left: 10px;
+	text-align: center;
+}
+
+.user-button > a {
+	color: #666;
+}
+
+.user-button > a:hover {
+	text-decoration: underline;	
+}
+
+.header-body {
+	width: 100%;
+	height: 65%;
+	background: linear-gradient(transparent, #3A3A3A 0%, #2A2A2A 100%);
+}
+
+.logo-area {
+	position: relative;
+	color: #fff;
+	padding: 10px 0;
+	margin-left: 65px;
+	font: 36px Arial;
+	width: 280px;
+	margin-top: 18px;
+	height: 50px;
+}
+
+.logo-area a {
+	font-family:  "Lucida Grande", Arial, sans-serif;
+	color: #ede9dc;
+}
+
+.logo-area a:hover {
+	text-decoration: none;
+}
+
+.logo-area h2 {
+	font-size: 36px;
+	margin: 0;
+}
+
+.logo-area h5 {
+	font-size: 16px;
+}
+
+.search-field {
+	width: 308px;
+	height :35px;
+	display: inline-block;
+	padding-right: 0px;
+	padding-left: 10px;
+	float: right;
+	margin-top: 55px;
+	margin-right: 65px;
+	background: linear-gradient(transparent, #272727 0%, #2C2C2C 100%);
+	border-radius: 5px;
+}
+
+.search-field a {
+	color: #444;
+}
+
+.search-field input[type="search"] {
+	width: 240px;
+	border: none; /* Убираем рамку */
+	outline: none; /* Убираем свечение в Chrome и Safari */
+    -webkit-appearance: none; /* Убираем рамку в Chrome и Safari */
+    background: rgba(0,0,0,0);
+    color: #777;
+}
+
+.search-field input[type="search"]::-webkit-input-placeholder {
+	color: #777;
+}
+
+.search-field input[type="search"]::-moz-placeholder {
+	color: #777;
+}
+
+.search-field button[type="submit"] {
+	width: 50px;
+	height: 28px;
+	border: none; /* Убираем рамку */
+	background: #AAA;
+	padding: 1px;
+	margin-top: 4px;
+	border-radius: 5px;
+}
+
+.search-field button[type="submit"]:hover {
+	background: #777;
+	transition: ease 0.3s;
+}
+
+.menu-area {
+	width: 100%;
+	height: 20%;
+}
+
+.menu-area a {
+	font-family:  "Lucida Grande", Arial, sans-serif;
+	color: #ede9dc;
+}
+
+.menu-button {
+	height: 100%;
+	background: #2a729a;
+	color: #fff;
+	text-align: center;
+	font-size: 16px;
+	border: none;
+}
+
+.menu-button:hover {
+	border: none;
+	background: #1a638a;
+	box-shadow: inset 0 0 20px #0a537a;
+	transition: ease 0.3s;
+}
+
+#content-wrapper {
+	flex: 1 0 auto;
+	margin-top: 270px;
+	padding: 0 4%;
+	float: left;
+	width: 100%;
+	margin-bottom: 50px;
+}
+
+#news-feed {
+	height: auto;
+	background: #eeeade;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.post {
+	padding: 40px 40px 0 40px;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+}
+
+.post h3, p {
+	font-family: "Lucida Grande", Arial, sans-serif;
+}
+
+.post-photo {
+	float: left;
+	width: 50px;
+	height: 50px;
+	margin-right: 30px;
+	display: inline-block;
+}
+
+.post-photo img {
+	width: 50px;
+    height: 50px;
+    border-radius: 8px;
+}
+
+.post-title-info-wrapper {
+	margin-left: 65px;
+	width: auto;
+}
+
+.post-title {
+	height: auto;
+}
+
+.post-title h3 {
+	font-size: 2em;
+	font-weight: bold;
+	margin-top: 0;
+	color: #222;
+}
+
+.post-info {
+	font: 14px "Lucida Grande", Arial, sans-serif;
+	color: #b9b6ac;
+	width: auto;
+	height: auto;
+}
+
+.post-info a {
+	color: #b9b6ac;
+	text-decoration: underline;
+}
+
+.post-body {
+	float: left;
+	height: auto;
+	font: 1.1em "Lucida Grande", Arial, sans-serif;
+	line-height: 1.7em;
+	margin-top: 20px;
+	word-break: break-all;
+	width: 100%;
+}
+
+.post-body p {
+	margin: 1.5em 0;
+	color: #555;
+}
+
+.post-image {
+	margin-bottom: 20px;
+	text-align: center;
+	width: 100%;
+}
+
+.post-image img {
+	width: 100%;
+	min-height: 600px;
+	max-height: 800px;
+}
+
+.post-continue {
+	float: right;
+	width: 100%;
+	margin-top: 10px;
+	border-bottom: 1px solid #999;
+	padding-bottom: 10px;
+}
+
+.post-continue a {
+	font: italic bold 16px "Lucida Grande", Arial, sans-serif;
+	text-decoration: underline;
+	color: #666;
+	float: right;
+}
+
+#pagination-wrapper {
+	float: left;
+	width: 100%;
+}
+
+#pagination {
+	height: 60px;
+	width: 400px;
+	margin: auto;
+	margin-top: 20px;
+	background: linear-gradient(transparent, #454e58 0%, #1c2128 100%);
+	border-radius: 7px 7px 0 0;
+}
+
+#pagination a {
+	text-decoration: underline;
+	color: #ede9dc;
+	font-family: "Lucida Grande", Arial, sans-serif;
+}
+
+#pagination table {
+	width:;
+}
+
+#pagination-previous {
+	float: left;
+	text-align: center;
+	line-height: 60px;
+	width: 110px;
+}
+
+#pagination-current {
+	float: left;
+	text-align: center;
+	line-height: 60px;
+	width: 175px;
+	color: #ede9dc;
+	font-family: "Lucida Grande", Arial, sans-serif;
+}
+
+#pagination-next {
+	float: right;
+	text-align: center;
+	line-height: 60px;
+	width: 110px;
+}
+
+#sidebar {
+	float: right;
+	height: auto;
+	border-radius: 8px;
+	width: 23%;
+	color: #ede9dc;
+}
+
+#about-title {
+	float: left;
+	width: 100%;
+	border-bottom: 1px solid #ede9dc;
+	margin-top: 20px;
+	padding-bottom: 10px;
+	font: 16px "Lucida Grande", Arial, sans-serif;
+}
+
+.about-body {
+	margin-top: 15px;
+	float: left;
+	height: auto;
+	border-bottom: 1px solid #ede9dc;
+	padding-bottom: 10px;
+}
+
+.about-image {
+	float: left;
+	width: auto;
+	height: auto;
+	margin-right: 10px;
+}
+
+.about-image img {
+	max-height: 140px;
+	max-width: 140px;
+}
+
+.about-text {
+	font: 15px "Lucida Grande", Arial, sans-serif;
+}
+
+#categories-title {
+	float: left;
+	width: 100%;
+	border-bottom: 1px solid #ede9dc;
+	margin-top: 50px;
+	padding-bottom: 10px;
+	font: 16px "Lucida Grande", Arial, sans-serif;
+}
+
+#categories ul {
+	padding-left: 0;
+	list-style-position: inside;
+}
+
+#categories ul li {
+	width: 100%;
+	border-bottom: 1px solid #ede9dc;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 20px;
+}
+
+#categories ul li a{
+	color: #ede9dc;
+}
+
+#footer {
+	float: left;
+	height: 80px;
+	width: 100%;
+	background: linear-gradient(transparent, #272727 0%, #2C2C2C 100%);
+	flex: 0 0 auto;
+}
+
+.footer-icons {
+	position: absolute;
+	margin: 18px 4%;
+}
+
+.footer-icons i {
+	color: #ede9dc;
+}
+
+.footer-body {
+	float: right;
+	margin: 0 4%;
+	line-height: 80px;
+	text-align: center;
+	color: #ede9dc;
+}
+
+/* ------- post.html -------- */
+.post-alone {
+	padding: 40px;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+}
+
+.post-alone h3, p {
+	font-family: "Lucida Grande", Arial, sans-serif;
+}
+
+#news-feed-alone {
+	height: auto;
+	background: #eeeade;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	width: 75%;
+	margin: auto;
+}
+
+#comments-feed {
+	margin: auto;
+	margin-top: 30px;
+	height: auto;
+	background: #eeeade;
+	border-radius: 8px;	
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	width: 75%;
+	padding: 40px;
+}
+
+.comment {
+	margin-bottom: 15px;
+	height: auto;
+}
+
+.comment-photo {
+	float: left;
+	width: 50px;
+	height: 50px;
+	margin-right: 30px;
+	display: inline-block;
+}
+
+.comment-photo img {
+	width: 50px;
+    height: 50px;
+    border-radius: 8px;
+}
+
+.comment-info {
+	font: 14px "Lucida Grande", Arial, sans-serif;
+	color: #b9b6ac;
+	margin-top: 17px;
+	float: left;
+}
+
+.comment-info a {
+	font: bold 1.5em  "Lucida Grande", Arial, sans-serif;
+	color: #222;
+	text-decoration: none;
+}
+
+.comment-info-date {
+	float: right;
+	font: 14px "Lucida Grande", Arial, sans-serif;
+	color: #b9b6ac;
+	margin-top: 17px;
+}
+
+.comment-body {
+	height: auto;
+	font: 1.1em "Lucida Grande", Arial, sans-serif;
+	line-height: 1.7em;
+	word-break: break-all;
+	width: 100%;
+	display: inline-block;
+}
+
+.comment-body p {
+	margin: 1.5em 0;
+	color: #555;
+}
+
+#comments-feed form {
+	width: 100%;
+}
+
+#comments-feed textarea[name="text_body"] {
+	margin: auto;
+	height: 100px;
+	width: 90%;
+}

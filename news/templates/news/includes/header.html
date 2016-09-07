@@ -1,0 +1,75 @@
+{% block header %}
+	<div id="header-wrapper">
+	<header id="header">
+		<div class="sitemap">
+			<div class="sitemap-marks">
+				<a class="sitemap-mark" tabindex=1 href="#">
+					Контакты		
+				</a>
+				<a class="sitemap-mark" tabindex=2 href="#">
+					Карта
+				</a>
+				<a class="sitemap-mark" tabindex=3 href="#">
+					Абоут
+				</a>
+			</div>
+			<div class="user-buttons">
+				{% if current_user.is_authenticated %}
+				<div class="user-button">
+					<i class="fa fa-user" aria-hidden="true"></i>
+					<a href="#">{{ current_user.username }}</a>
+				</div>
+				<div class="user-button">
+					<a href="/signOut/">Sign Out</a>
+				</div>
+				
+				{% else %}
+
+				<div class="user-button">
+					<a href="/signIn/">Sign In</a>
+				</div>
+				<div class="user-button">
+					<a href="/signUp/">Sign Up</a>
+				</div>
+
+				{% endif %}
+
+			</div>
+			
+		</div>
+		<div class="header-body">
+			<div class="logo-area col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<a href="/">
+					<h2>Leet Zeppelin</h2>
+					<h5>Команда мечты вступай скорей мы ждём тебя здесь (нет)</h5>
+				</a>
+			</div>
+			<div class="search-field col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<input type="search" tabindex=4 placeholder="Поиск">
+				<a href="#"><button type="submit"><i class="fa fa-lg fa-search" aria-hidden="true"></i></button></a>
+			</div>
+
+		</div>
+		<div class="menu-area">
+			<a href="#">
+				<button type="submit" tabindex=5 class="menu-button col-lg-2 col-md-2 col-sm-2 col-xs-2">Menu button</button>
+			</a>
+			<a href="#">
+				<button type="submit" tabindex=6 class="menu-button col-lg-2 col-md-2 col-sm-2 col-xs-2">Menu button</button>
+			</a>
+			<a href="#">
+				<button type="submit" tabindex=7 class="menu-button col-lg-2 col-md-2 col-sm-2 col-xs-2">Menu button</button>
+			</a>
+			<a href="#">
+				<button type="submit" tabindex=8 class="menu-button col-lg-2 col-md-2 col-sm-2 col-xs-2">Menu button</button>
+			</a>
+			<a href="#">
+				<button type="submit" tabindex=9 class="menu-button col-lg-2 col-md-2 col-sm-2 col-xs-2">Menu button</button>
+			</a>
+			<a href="#">
+				<button type="submit" tabindex=10 class="menu-button col-lg-2 col-md-2 col-sm-2 col-xs-2">Menu button</button>
+			</a>
+		</div>
+	</header>
+	</div>
+{% endblock %}

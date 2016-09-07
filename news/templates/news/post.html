@@ -1,0 +1,91 @@
+{% extends "news/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+	<title>LeetZeppelin Homepage</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.6-dist/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'font-awesome-4.6.3/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/media.css' %}">
+	<script type="text/javascript" src="{% static 'JS/jquery-3.1.0.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'JS/main.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="page-wrapper">
+
+{% block header %}
+	{% include "news/includes/header.html" %}
+{% endblock %}
+
+	<div id="content-wrapper">
+		<div id="news-feed-alone">
+			<div class="post-alone">
+				<div class="post-head">
+					<div class="post-photo">
+						<img src="{% static 'img/Kqu-1VRpcgw.jpg' %}" />
+					</div>
+					<div class="post-title">
+						<h3>
+							{{ post.title|title }}
+						</h3>
+					</div>
+					
+					<div class="post-info">
+						Posted by <a href="#">ilyarik</a> {{ post.time_post|naturalday }} &mdash; <a href="#">0 comments</a>
+					</div>
+				</div>
+				<div class="post-body">
+					{% if post.image %}
+					<div class="post-image">
+						<img src="/media/{{ post.image }}">
+					</div>
+					{% endif %}
+
+					{{ post.text_body }}
+				</div>
+			</div>
+		</div>
+		{% if comments or current_user.is_authenticated %}
+		<div id="comments-feed">
+			{% for comment in comments %}
+				<div class="comment">
+					<div class="comment-photo">
+						<img src="{% static 'img/Kqu-1VRpcgw.jpg' %}">
+					</div>
+					<div class="comment-info">
+						<a href="#">{{ comment.author }}</a>
+					</div>
+					<div class="comment-info-date">
+						{{ comment.time_post|naturaltime }}
+					</div>
+					
+					<div class="comment-body">
+						<p>
+							{{ comment.text_body }}
+						</p>
+					</div>
+				</div>
+			{% endfor %}
+
+			{% if current_user.is_authenticated %}
+				<form action="" method="POST">
+					{% csrf_token %}
+					{{ form }}
+					<input type="submit" value="Send">
+				</form>
+			{% endif %}
+		</div>
+		{% endif %}
+	</div>
+	<div id="footer">
+		<div class="footer-icons">
+			<a target="_blank" href="https://vk.com/ctf_vl"><i class="fa fa-vk fa-3x" aria-hidden="true"></i></a>
+		</div>
+		<div class="footer-body">
+			Created by ilyarik &copy; 2016
+		</div>
+	</div>
+</div>
+{% endblock %}
