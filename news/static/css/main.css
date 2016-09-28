@@ -475,11 +475,12 @@ a:focus, button:focus {
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 	width: 75%;
-	margin: auto;
+	margin-left: 12%;
+	float: left;
 }
 
 #comments-feed {
-	margin: auto;
+	float: left;
 	margin-top: 30px;
 	height: auto;
 	background: #eeeade;
@@ -487,6 +488,7 @@ a:focus, button:focus {
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 	width: 75%;
 	padding: 40px;
+	margin-left: 12%
 }
 
 .comment {
@@ -550,4 +552,74 @@ a:focus, button:focus {
 	margin: auto;
 	height: 100px;
 	width: 90%;
+}
+
+/* ------- profile.html -------- */
+#profile-content {
+	padding: 50px;
+	font: 14px "Lucida Grande", Arial, sans-serif;
+}
+
+#profile-content table {
+	width: 100%;
+}
+
+#profile-content form {
+	width: 200px;
+}
+
+#profile-content input[name="birthday"] {
+	width: 130px;
+}
+
+#profile-content ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+#profile-content ul li:nth-child(2) {
+	margin-top: 50px;
+}
+
+#profile-content select[name="country"] {
+	width: 70%;
+	max-width: 452px;
+}
+
+#user-main-photo {
+	float: left;
+}
+
+#user-main-photo img {
+	min-width: 120px;
+	min-height: 160px;
+	max-width: 160px;
+	max-height: 200px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#user-name {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+table tr td {
+	vertical-align: top;
+}
+
+table tr td:nth-child(1) {
+	width: 28%;
+}
+
+#submit-button {
+	float: right;
+}
+
+#user-about-title {
+	margin-top: 20px;
+}
+
+#user-about-body textarea[name="about"] {
+	width: 100%;
 }

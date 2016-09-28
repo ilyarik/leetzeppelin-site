@@ -1,0 +1,120 @@
+{% extends "news/base.html" %}
+{% load static %}
+
+{% block title %}
+	<title>{{ user }} profile</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.6-dist/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'font-awesome-4.6.3/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/media.css' %}">
+	<script type="text/javascript" src="{% static 'JS/jquery-3.1.0.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'JS/main.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="page-wrapper">
+
+{% block header %}
+	{% include "news/includes/header.html" %}
+{% endblock %}
+
+	<div id="content-wrapper">
+		<div id="news-feed-alone">
+		<div id="profile-content">
+			<table>
+				<tr>
+					<td>
+					<div id="user-main-photo">
+						{% if user.avatar %}
+						<img src="{{ MEDIA_URL }}{{ user.avatar }}">
+						{% else %}
+						<img src="{{ MEDIA_URL }}news/default-avatar.png">
+						{% endif %}
+					</div>
+					{% if current_user.id == user.id %}
+					<form method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						{{ UserProfileChangeForm.avatar.errors }}
+						{{ UserProfileChangeForm.avatar }}
+					{% endif %}
+					</td>
+					<td>
+					<ul>
+						<li>
+							<div id="user-name">
+								{{ user }}
+							</div>
+						</li>
+						<li>
+							{% if current_user.id == user.id %}
+							<div id="profile-country">
+								<label>Country:</label> 
+								{{ UserProfileChangeForm.country }}
+							</div>
+							{% elif user.country %}
+							<div id="profile-country">
+								<label>Country:</label> 
+								{{ user.country.name }} <img src="{{ user.country.flag }}">
+							</div>
+							{% endif %}	
+						</li>
+						<li>
+							{% if current_user.id == user.id %}
+							<div id="profile-gender">
+								<label>Gender:</label> 
+								{{ UserProfileChangeForm.gender }}
+							</div>
+							{% elif user.gender %}
+							<div id="profile-gender">
+								<label>Gender:</label> {{ user.get_gender_display }}
+							</div>
+							{% endif %}
+						</li>
+						<li>
+							{% if current_user.id == user.id %}
+							<div id="birthday-date">
+								<label>Birthday:</label> 
+								{{ UserProfileChangeForm.birthday.errors }}
+								{{ UserProfileChangeForm.birthday }}
+							</div>
+							{% elif user.birthday %}
+								<label>Birthday:</label> {{ user.birthday }}
+							{% endif %}
+						</li>
+					</ul>
+					</td>					
+				</tr>
+				<tr>
+				<td colspan="2">
+					{% if current_user.id == user.id or user.about %}
+					<div id="user-about-title">
+						About:
+					</div>
+					{% endif %}
+					<div id="user-about-body">
+					{% if current_user.id == user.id %}
+						{{ UserProfileChangeForm.about.errors }}
+						{{ UserProfileChangeForm.about|default:user.about }}
+					{% else %}
+						{% if user.about %}
+							{{ user.about }}
+						{% endif %}
+					{% endif %}
+					</div>
+					{% if current_user.id == user.id %}
+						<div id="submit-button">
+							<input type="submit" value="Apply changes">	
+						</div>
+					{% endif %}
+					</form>
+				</td>
+				</tr>
+			</table>
+		</div>
+		</div>
+	</div>
+{% block footer %}
+	{% include "news/includes/footer.html" %}
+{% endblock %}
+</div>
+{% endblock %}

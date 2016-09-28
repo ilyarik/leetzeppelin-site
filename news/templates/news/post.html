@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block title %}
-	<title>LeetZeppelin Homepage</title>
+	<title>{{ post.title|title }}</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.6-dist/css/bootstrap.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'font-awesome-4.6.3/css/font-awesome.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -79,13 +79,8 @@
 		</div>
 		{% endif %}
 	</div>
-	<div id="footer">
-		<div class="footer-icons">
-			<a target="_blank" href="https://vk.com/ctf_vl"><i class="fa fa-vk fa-3x" aria-hidden="true"></i></a>
-		</div>
-		<div class="footer-body">
-			Created by ilyarik &copy; 2016
-		</div>
-	</div>
+{% block footer %}
+	{% include "news/includes/footer.html" %}
+{% endblock %}
 </div>
 {% endblock %}

@@ -1,12 +1,14 @@
 #-*- coding: utf8 -*-
 from django.shortcuts import render, render_to_response, redirect, HttpResponse
-from .models import Post, PostComment, UserProfile
+from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
-from .forms import CommentForm, UserRegisterForm, UserLoginForm
+from .forms import *
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 
 current_date = datetime.date.today()
 
@@ -42,12 +44,11 @@ def post(request, id):
 			comment.time_post = datetime.datetime.now()
 			comment.save()
 			return redirect(request.META['HTTP_REFERER'])
-	else:
-		form = CommentForm
+	
 	return render(request, 'news/post.html', {
 		'post' : post,
 		'current_date' : current_date,
-		'form' : form,
+		'form' : CommentForm,
 		'comments' : comments,
 		'current_user' : current_user,
 		})
@@ -55,15 +56,24 @@ def post(request, id):
 def register(request):
 	new_user = UserProfile()
 	if request.method == 'POST':
-	    new_user.username = request.POST['username']
-	    new_user.password = make_password(request.POST['password'])
-	    new_user.email = request.POST['email']
-	    new_user.save()
-	    return redirect("/")
-	else:
-		return render(request, 'news/register.html', {
-			'registerForm' : UserRegisterForm,
-			})
+		if UserProfile.objects.filter(username=request.POST['username']):
+			return HttpResponse("<h4>user already exist</h4>")
+		else:
+			new_user.username = request.POST['username']
+
+		new_user.password = make_password(request.POST['password'])
+		
+		if UserProfile.objects.filter(email=request.POST['email']):
+			return HttpResponse("<h4>user already exist</h4>")
+		else:
+			new_user.email = request.POST['email']
+
+		new_user.save()
+		return redirect("/")
+
+	return render(request, 'news/register.html', {
+		'registerForm' : UserRegisterForm,
+		})
 
 def signIn(request):
 	if request.method == 'POST':
@@ -77,7 +87,7 @@ def signIn(request):
 	        else:
 	          	return HttpResponse("<h4>inactive user</h4>")  
 	    else:
-	        return HttpResponse("<h4>incorrect user</h4>")
+	        return HttpResponse("<h4>incorrect data</h4>")
 	else:
 		return render(request, 'news/login.html', {
 			'loginForm' : UserLoginForm,
@@ -86,4 +96,51 @@ def signIn(request):
 def signOut(request):
 	if request.user.is_authenticated:
 		logout(request)
-	return redirect("/")	
+	return redirect("/")
+
+def profile(request, user):
+	user = UserProfile.objects.filter(username=user)[0]	#user who page we see
+	current_user = request.user 						#user who logged
+	if request.method == 'POST' and current_user.id == user.id:
+		userProfileForm = UserProfileChangeForm(request.POST)
+		if userProfileForm.is_valid():
+			if request.FILES and request.FILES['avatar']:
+				user.avatar = request.FILES['avatar']
+
+			if request.POST['country']:
+				user.country = request.POST['country']
+			else:
+				user.country = None
+
+			if request.POST['gender']:
+				user.gender = request.POST['gender']
+
+			if request.POST['birthday']:
+				user.birthday = request.POST['birthday']
+			else:
+				user.birthday = None
+
+			if request.POST['about']:
+				user.about = request.POST['about']
+			else: 
+				user.about = None
+				
+			user.save()
+			return redirect(request.META['HTTP_REFERER'])
+
+	if user.birthday:
+		birthday = user.birthday.strftime('%Y-%m-%d') 
+	else:
+		birthday = None
+
+	return render(request, 'news/profile.html', {
+		'user' : user,
+		'current_user' : current_user,
+		'current_date' : current_date,
+		'UserProfileChangeForm' : UserProfileChangeForm({
+			'country' : user.country,
+			'gender' : user.gender,
+			'birthday' : birthday,
+			'about' : user.about,
+			}),
+		})

@@ -128,13 +128,8 @@
 			</div>
 		</div>
 	</div>
-	<div id="footer">
-		<div class="footer-icons">
-			<a target="_blank" href="https://vk.com/ctf_vl"><i class="fa fa-vk fa-3x" aria-hidden="true"></i></a>
-		</div>
-		<div class="footer-body">
-			Created by ilyarik &copy; {{ current_date.year }}
-		</div>
-	</div>
+{% block footer %}
+	{% include "news/includes/footer.html" %}
+{% endblock %}
 </div>
 {% endblock %}

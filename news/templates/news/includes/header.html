@@ -17,7 +17,7 @@
 				{% if current_user.is_authenticated %}
 				<div class="user-button">
 					<i class="fa fa-user" aria-hidden="true"></i>
-					<a href="#">{{ current_user.username }}</a>
+					<a href="/profile/{{ current_user.username }}">{{ current_user.username }}</a>
 				</div>
 				<div class="user-button">
 					<a href="/signOut/">Sign Out</a>
@@ -45,7 +45,7 @@
 				</a>
 			</div>
 			<div class="search-field col-lg-6 col-md-6 col-sm-6 col-xs-6">
-				<input type="search" tabindex=4 placeholder="Поиск">
+				<input type="search" tabindex=4 placeholder="Search">
 				<a href="#"><button type="submit"><i class="fa fa-lg fa-search" aria-hidden="true"></i></button></a>
 			</div>
 

@@ -1,6 +1,7 @@
 #-*- coding: utf8 -*-
 from django import forms
 from .models import PostComment, UserProfile
+from django_countries.widgets import CountrySelectWidget
 
 class CommentForm(forms.Form):
 	text_body = forms.CharField(
@@ -21,3 +22,13 @@ class UserLoginForm(forms.Form):
 	password = forms.CharField(label="Password: ", widget=forms.PasswordInput)
 	class Meta:
 		model = UserProfile
+
+class UserProfileChangeForm(forms.ModelForm):
+	class Meta:
+		model = UserProfile
+		fields = ['avatar','birthday','about','gender','country']
+		widgets = {
+            'birthday': forms.DateInput(),
+            'about': forms.Textarea(),
+            'country': CountrySelectWidget()
+        }
