@@ -10,6 +10,13 @@ class Post(models.Model):
 	text_body = models.TextField()
 	time_post = models.DateTimeField(auto_now=False, auto_now_add=True)
 	image = models.ImageField(upload_to='news', null=True, blank=True)
+	posted_by = models.ForeignKey(
+		'UserProfile',
+		on_delete=models.CASCADE,
+		null=True,
+		blank=True,
+		)
+	num_of_comments = models.IntegerField(default=0)
 
 	class Meta:
 		verbose_name = u"Post"
@@ -19,9 +26,14 @@ class Post(models.Model):
 		return self.title
 
 class PostComment(models.Model):
-	author = models.CharField(max_length=80)
-	post_fk = models.ForeignKey(
+	post = models.ForeignKey(
 		'Post',
+		on_delete=models.CASCADE,
+		null=True,
+		blank=True,
+		)
+	posted_by = models.ForeignKey(
+		'UserProfile',
 		on_delete=models.CASCADE,
 		null=True,
 		blank=True,

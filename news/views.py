@@ -24,7 +24,7 @@ def news(request, page=1):
 	except EmptyPage:
 		# If page is out of range (e.g. 9999), deliver last page of results.
 		posts = paginator.page(paginator.num_pages)
-	return render_to_response('news/home.html', {
+	return render(request, 'news/home.html', {
 		'posts' : posts,
 		'current_date' : current_date,
 		'current_user': current_user,
@@ -32,17 +32,19 @@ def news(request, page=1):
 
 def post(request, id):
 	post = Post.objects.get(id=id)
-	comments = PostComment.objects.filter(post_fk=id)
+	comments = PostComment.objects.filter(post=id)
 	current_user = request.user
 	if request.method == 'POST':
 		form = CommentForm(request.POST)
 		if form.is_valid():
 			comment = PostComment()
-			comment.author = current_user
-			comment.post_fk_id = int(id)
+			comment.posted_by = UserProfile.objects.filter(username=current_user)[0]
+			comment.post_id = int(id)
 			comment.text_body = u'%s'%(request.POST["text_body"])
 			comment.time_post = datetime.datetime.now()
 			comment.save()
+			post.num_of_comments+=1
+			post.save()
 			return redirect(request.META['HTTP_REFERER'])
 	
 	return render(request, 'news/post.html', {

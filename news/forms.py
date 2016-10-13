@@ -1,7 +1,8 @@
 #-*- coding: utf8 -*-
 from django import forms
-from .models import PostComment, UserProfile
+from .models import *
 from django_countries.widgets import CountrySelectWidget
+from tinymce.widgets import TinyMCE
 
 class CommentForm(forms.Form):
 	text_body = forms.CharField(

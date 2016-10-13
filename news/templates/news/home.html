@@ -26,7 +26,7 @@
 			<div class="post">
 				<div class="post-head">
 					<div class="post-photo">
-						<img src="{% static 'img/Kqu-1VRpcgw.jpg' %}" />
+						<img src="{{ post.posted_by.avatar.url }}">
 					</div>
 					<div class="post-title">
 						<h3>
@@ -35,21 +35,21 @@
 					</div>
 					
 					<div class="post-info">
-						Posted by <a href="#">ilyarik</a> {{ post.time_post|naturalday }} &mdash; <a href="#">0 comments</a>
+						Posted by <a href="/profile/{{ post.posted_by }}">{{ post.posted_by }}</a> {{ post.time_post|naturalday }} &mdash; <a href="/post/{{ post.id }}#comments-feed">{{ post.num_of_comments }} comments</a>
 					</div>
 				</div>
 				<div class="post-body">
 					{% if post.image %}
 					<div class="post-image">
-						<img src="media/{{ post.image }}">
+						<img src="{{ post.image.url }}">
 					</div>
 					{% endif %}
 
-					{{ post.text_body|truncatewords:150 }}	
+					{{ post.text_body|truncatewords:150|safe }}	
 					
 				</div>
 				<div class="post-continue">
-					<a href="post/{{ post.id }}"> Читать дальше &raquo; </a>
+					<a href="/post/{{ post.id }}"> Читать дальше &raquo; </a>
 				</div>
 			</div>
 			{% endfor %}
