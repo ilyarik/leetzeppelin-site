@@ -24,7 +24,10 @@
 			<div class="post-alone">
 				<div class="post-head">
 					<div class="post-photo">
-						<img src="{{ post.posted_by.avatar.url }}" />
+					{% if post.posted_by.avatar %}<img src="{{ post.posted_by.avatar.url }}" />
+					{% else %}<img src="{{ MEDIA_URL }}news/default-avatar.png" />
+					{% endif %}
+					
 					</div>
 					<div class="post-title">
 						<h3>
@@ -33,7 +36,7 @@
 					</div>
 					
 					<div class="post-info">
-						Posted by <a href="/profile/{{ post.posted_by }}">ilyarik</a> {{ post.time_post|naturalday }} &mdash; <a href="#comments-feed">{{ post.num_of_comments }} comments</a>
+						Posted by <a href="/profile/{{ post.posted_by }}">{{ post.posted_by.username }}</a> {{ post.time_post|naturalday }} &mdash; <a href="#comments-feed">{{ post.num_of_comments }} comments</a>
 					</div>
 				</div>
 				<div class="post-body">
@@ -52,10 +55,14 @@
 			{% for comment in comments %}
 				<div class="comment">
 					<div class="comment-photo">
-						<a href="/profile/{{ post.posted_by }}"><img src="{{ comment.posted_by.avatar.url }}"></a>
+						<a href="/profile/{{ comment.posted_by }}">
+						{% if comment.posted_by.avatar %}<img src="{{ comment.posted_by.avatar.url }}" />
+						{% else %} <img src="{{ MEDIA_URL }}news/default-avatar.png" />
+						{% endif %}
+						</a>
 					</div>
 					<div class="comment-info">
-						<a href="/profile/{{ post.posted_by }}">{{ comment.posted_by }}</a>
+						<a href="/profile/{{ comment.posted_by }}">{{ comment.posted_by }}</a>
 					</div>
 					<div class="comment-info-date">
 						{{ comment.time_post|naturaltime }}

@@ -26,9 +26,9 @@
 					<td>
 					<div id="user-main-photo">
 						{% if user.avatar %}
-						<img src="{{ user.avatar.url }}">
+						<img src="{{ user.avatar.url }}" />
 						{% else %}
-						<img src="{{ MEDIA_URL }}news/default-avatar.png">
+						<img src="{{ MEDIA_URL }}news/default-avatar.png" />
 						{% endif %}
 					</div>
 					{% if current_user.id == user.id %}

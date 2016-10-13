@@ -42,7 +42,8 @@ class PostComment(models.Model):
 	time_post = models.DateTimeField(auto_now=False, auto_now_add=True)
 
 	def __str__(self):
-		return self.author
+		return self.text_body
+
 
 class UserProfile(User):
 	GENDER_CHOICES = (
@@ -58,3 +59,6 @@ class UserProfile(User):
 	class Meta:
 		verbose_name = u"User"
 		verbose_name_plural = u"Users"
+
+	def __str__(self):
+		return self.username

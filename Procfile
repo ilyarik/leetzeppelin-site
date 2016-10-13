@@ -1,0 +1,1 @@
+web: python manage.py collectstatic --noinput; waitress-serve --port=$PORT leetzeppelin34.wsgi:application

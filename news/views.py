@@ -1,5 +1,5 @@
 #-*- coding: utf8 -*-
-from django.shortcuts import render, render_to_response, redirect, HttpResponse
+from django.shortcuts import render, render_to_response, redirect, HttpResponse, Http404, get_object_or_404, get_list_or_404
 from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
@@ -31,7 +31,7 @@ def news(request, page=1):
 		})
 
 def post(request, id):
-	post = Post.objects.get(id=id)
+	post = get_object_or_404(Post, id=id)
 	comments = PostComment.objects.filter(post=id)
 	current_user = request.user
 	if request.method == 'POST':
@@ -39,7 +39,7 @@ def post(request, id):
 		if form.is_valid():
 			comment = PostComment()
 			comment.posted_by = UserProfile.objects.filter(username=current_user)[0]
-			comment.post_id = int(id)
+			comment.post = Post.objects.get(id=id)
 			comment.text_body = u'%s'%(request.POST["text_body"])
 			comment.time_post = datetime.datetime.now()
 			comment.save()
@@ -59,14 +59,14 @@ def register(request):
 	new_user = UserProfile()
 	if request.method == 'POST':
 		if UserProfile.objects.filter(username=request.POST['username']):
-			return HttpResponse("<h4>user already exist</h4>")
+			raise Http404("User already exist")
 		else:
 			new_user.username = request.POST['username']
 
 		new_user.password = make_password(request.POST['password'])
 		
 		if UserProfile.objects.filter(email=request.POST['email']):
-			return HttpResponse("<h4>user already exist</h4>")
+			raise Http404("Email already registered")
 		else:
 			new_user.email = request.POST['email']
 
@@ -87,9 +87,9 @@ def signIn(request):
 	            login(request, user)
 	            return redirect("/")
 	        else:
-	          	return HttpResponse("<h4>inactive user</h4>")  
+	          	raise Http404("Inactive user")  
 	    else:
-	        return HttpResponse("<h4>incorrect data</h4>")
+	        raise Http404("Incorrect data")
 	else:
 		return render(request, 'news/login.html', {
 			'loginForm' : UserLoginForm,
@@ -101,13 +101,15 @@ def signOut(request):
 	return redirect("/")
 
 def profile(request, user):
-	user = UserProfile.objects.filter(username=user)[0]	#user who page we see
+	user = get_list_or_404(UserProfile, username=user)[0] #user who page we see
 	current_user = request.user 						#user who logged
 	if request.method == 'POST' and current_user.id == user.id:
 		userProfileForm = UserProfileChangeForm(request.POST)
 		if userProfileForm.is_valid():
-			if request.FILES and request.FILES['avatar']:
+			try:
 				user.avatar = request.FILES['avatar']
+			except:
+				pass
 
 			if request.POST['country']:
 				user.country = request.POST['country']
