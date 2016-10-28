@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+of*uux)fpa+5=c%p_xnl47w=24id1vi!1n1256$11uydfq4%('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -83,16 +83,28 @@ WSGI_APPLICATION = 'leetzeppelin34.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd5d7b4b66o9cm4',
-        'USER': 'rcjmjgpeakroya',
-        'PASSWORD': os.environ['DB_PASS'],
-        'HOST': 'ec2-54-228-219-40.eu-west-1.compute.amazonaws.com',
-        'PORT' : '5432,'
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'leetzeppelin_db',
+            'HOST': 'localhost',
+            'USER': 'postgresql_admin',
+            'PASSWORD': os.environ['PGSQL_ADMIN_PSWD'],
+            'PORT' : '5432,'
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'd5d7b4b66o9cm4',
+            'USER': 'rcjmjgpeakroya',
+            'PASSWORD': os.environ['DB_PASS'],
+            'HOST': 'ec2-54-228-219-40.eu-west-1.compute.amazonaws.com',
+            'PORT' : '5432,'
+        }
+    }
 
 
 # Password validation
@@ -138,17 +150,20 @@ STATICFILES_DIRS = (
 )
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-#-------------AWS S3 settings-------------#
-AWS_QUERYSTRING_AUTH = False
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
-
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
-#-----------------------------------------#
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = "https://%s.s3.amazonaws.com/" % (AWS_STORAGE_BUCKET_NAME)
+if DEBUG:
+    MEDIA_URL = "/media/"
+else:
+    #-------------AWS S3 settings-------------#
+    AWS_QUERYSTRING_AUTH = False
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
+
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
+    #-----------------------------------------#
+    MEDIA_URL = "https://%s.s3.amazonaws.com/" % (AWS_STORAGE_BUCKET_NAME)
+
 TINYMCE_DEFAULT_CONFIG = {
     'theme': "advanced",
     'cleanup_on_startup': True,

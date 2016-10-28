@@ -35,8 +35,8 @@ def post(request, id):
 	comments = PostComment.objects.filter(post=id)
 	current_user = request.user
 	if request.method == 'POST':
-		form = CommentForm(request.POST)
-		if form.is_valid():
+		add_comment = CommentForm(request.POST)
+		if add_comment.is_valid():
 			comment = PostComment()
 			comment.posted_by = UserProfile.objects.filter(username=current_user)[0]
 			comment.post = Post.objects.get(id=id)
@@ -46,6 +46,15 @@ def post(request, id):
 			post.num_of_comments+=1
 			post.save()
 			return redirect(request.META['HTTP_REFERER'])
+		try:
+			del_comment_id = request.POST['del_comment']
+			comment = get_object_or_404(PostComment, id=del_comment_id)
+			if comment.posted_by.id == current_user.id:
+				post.num_of_comments-=1
+				post.save()
+				comment.delete()
+		except:
+			pass
 	
 	return render(request, 'news/post.html', {
 		'post' : post,

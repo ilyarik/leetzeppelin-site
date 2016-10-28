@@ -281,7 +281,6 @@ a:focus, button:focus {
 	font: 1.1em "Lucida Grande", Arial, sans-serif;
 	line-height: 1.7em;
 	margin-top: 20px;
-	word-break: break-all;
 	width: 100%;
 }
 
@@ -535,13 +534,26 @@ a:focus, button:focus {
 	font: 1.1em "Lucida Grande", Arial, sans-serif;
 	line-height: 1.7em;
 	word-break: break-all;
-	width: 100%;
+	width: 90%;
 	display: inline-block;
 }
 
 .comment-body p {
 	margin: 1.5em 0;
 	color: #555;
+}
+
+.comment-delete {
+	float: left;
+	margin-top: 10px;
+	margin-left: 15px;
+	font-size: 1.25em;
+}
+
+.comment-delete button{
+	background:none;
+  	border:none;
+	font-size:1em;
 }
 
 #comments-feed form {

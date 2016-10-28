@@ -26,7 +26,11 @@
 			<div class="post">
 				<div class="post-head">
 					<div class="post-photo">
+						{% if post.posted_by.avatar %}
 						<img src="{{ post.posted_by.avatar.url }}">
+						{% else %}
+						<img src="{{ MEDIA_URL }}news/default-avatar.png">
+						{% endif %}
 					</div>
 					<div class="post-title">
 						<h3>

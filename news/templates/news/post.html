@@ -24,8 +24,8 @@
 			<div class="post-alone">
 				<div class="post-head">
 					<div class="post-photo">
-					{% if post.posted_by.avatar %}<img src="{{ post.posted_by.avatar.url }}" />
-					{% else %}<img src="{{ MEDIA_URL }}news/default-avatar.png" />
+					{% if post.posted_by.avatar %}<a href="/profile/{{ post.posted_by }}"><img src="{{ post.posted_by.avatar.url }}" /></a>
+					{% else %}<a href="/profile/{{ post.posted_by }}"><img src="{{ MEDIA_URL }}news/default-avatar.png" /></a>
 					{% endif %}
 					
 					</div>
@@ -64,6 +64,15 @@
 					<div class="comment-info">
 						<a href="/profile/{{ comment.posted_by }}">{{ comment.posted_by }}</a>
 					</div>
+					{% if comment.posted_by.id == current_user.id %}
+					<div class="comment-delete">
+					<form method="POST" action="">
+						{% csrf_token %}
+						<input type="text" name="del_comment" value="{{ comment.id }}" hidden="true" />
+						<button type="submit"><i class="fa fa-times" aria-hidden="true"></i></button>
+					</form>
+					</div>
+					{% endif %}
 					<div class="comment-info-date">
 						{{ comment.time_post|naturaltime }}
 					</div>
@@ -73,6 +82,7 @@
 							{{ comment.text_body }}
 						</p>
 					</div>
+					
 				</div>
 			{% endfor %}
 
