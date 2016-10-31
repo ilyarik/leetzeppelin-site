@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.conf import settings
 from django import forms
 from .models import *
@@ -7,7 +9,7 @@ from tinymce.widgets import TinyMCE
 
 class NewsForm(forms.ModelForm):
 	text_body = forms.CharField(widget=TinyMCE(mce_attrs={'width':'80%'}), label='Post')
-	posted_by = forms.ModelChoiceField(queryset=UserProfile.objects.filter(is_superuser=True))
+	posted_by = forms.ModelChoiceField(queryset=User.objects.filter(is_superuser=True))
 	class Meta:
 		model = Post
 		fields = ['title','image']
@@ -24,6 +26,6 @@ class NewsForm(forms.ModelForm):
 
 class NewsAdmin(admin.ModelAdmin):
 	form = NewsForm
-
+	
 admin.site.register(Post, NewsAdmin)
 admin.site.register(PostComment)

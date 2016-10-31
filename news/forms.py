@@ -4,25 +4,33 @@ from .models import *
 from django_countries.widgets import CountrySelectWidget
 from tinymce.widgets import TinyMCE
 
-class CommentForm(forms.Form):
-	text_body = forms.CharField(
-		label="", widget=forms.Textarea(attrs={'placeholder': 'Send your comment'})
-		)
+class CommentForm(forms.ModelForm):
 	class Meta:
 		model = PostComment
+		fields = ['text_body']
+		widgets = {
+			'text_body': forms.Textarea(attrs={'placeholder': 'Send your comment', 'style':'resize:none;'}),
+		}
+		labels = {
+			'text_body': '',
+		}
 
-class UserRegisterForm(forms.Form):
-	username = forms.CharField(label="Username: ")
-	password = forms.CharField(label="Password: ", widget=forms.PasswordInput)
-	email = forms.EmailField(label="Email", widget=forms.EmailInput)
+class UserRegisterForm(forms.ModelForm):
 	class Meta:
-		model = UserProfile
+		model = User
+		fields = ['username','password','email']
+		widgets = {
+			'password': forms.PasswordInput,
+			'email': forms.EmailInput,
+		}
 
-class UserLoginForm(forms.Form):
-	username = forms.CharField(label="Username: ")
-	password = forms.CharField(label="Password: ", widget=forms.PasswordInput)
+class UserLoginForm(forms.ModelForm):
 	class Meta:
-		model = UserProfile
+		model = User
+		fields = ['username','password']
+		widgets = {
+			'password': forms.PasswordInput,
+		}
 
 class UserProfileChangeForm(forms.ModelForm):
 	class Meta:

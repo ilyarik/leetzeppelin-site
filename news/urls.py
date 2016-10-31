@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^signUp/$', views.register, name='registration'),
     url(r'^signIn/$', views.signIn, name="sign in"),
     url(r'^signOut/$', views.signOut, name="sign out"),
-    url(r'^profile/(?P<user>\w+)$', views.profile, name="user profile"),
+    url(r'^profile/(?P<username>\w+)$', views.profile, name="user profile"),
 ] 

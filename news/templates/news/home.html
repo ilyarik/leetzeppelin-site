@@ -39,7 +39,7 @@
 					</div>
 					
 					<div class="post-info">
-						Posted by <a href="/profile/{{ post.posted_by }}">{{ post.posted_by }}</a> {{ post.time_post|naturalday }} &mdash; <a href="/post/{{ post.id }}#comments-feed">{{ post.num_of_comments }} comments</a>
+						Posted by <a href="/profile/{{ post.posted_by.username }}">{{ post.posted_by.username }}</a> {{ post.time_post|naturalday }} &mdash; <a href="/post/{{ post.id }}#comments-feed">{{ post.num_of_comments }} comments</a>
 					</div>
 				</div>
 				<div class="post-body">
@@ -59,27 +59,33 @@
 			{% endfor %}
 			
 			<div id="pagination-wrapper">
-				<table id="pagination">
+				<table id="pagination-table">
 				<tr>
 					<td id="pagination-previous">
+					
 					{% if posts.has_previous %}
 					
-						<a href="{{ posts.previous_page_number }}">&laquo; Предыдущая
+						<a href="{{ posts.previous_page_number }}"><i class="fa fa-angle-double-left fa-2x" aria-hidden="true"></i>
+</a>
 					
 					{% endif %}
 					</td>
-					<td>
-						<div id="pagination-current">
+					
+					<td id="pagination-current">
+						
 							Page {{ posts.number }} of {{ posts.paginator.num_pages }}.	
-						</div>
+						
 					</td>
 
 					<td id="pagination-next">
+					
 					{% if posts.has_next %}
 					
-						<a href="{{ posts.next_page_number }}">Следующая &raquo;</a>
+						<a href="{{ posts.next_page_number }}"><i class="fa fa-angle-double-right fa-2x" aria-hidden="true"></i>
+</a>
 
 					{% endif %}
+					
 					</td>
 				</tr>
 				</table>
@@ -97,7 +103,9 @@
 						<img src="{% static 'img/pepe-8bit.jpg' %}" />	
 					</div>
 					<div class="about-text">
+					<p>
 						"When I tried to hack my first login form, i wondered how cool it is &mdash; to know more, then casual users. Although I hadn't heard about the SQL injections and just tried to brute form inputs."
+					</p>
 					</div>
 				</div>
 				<div class="about-body">
@@ -105,7 +113,9 @@
 						<img src="{% static 'img/evok.jpg' %}" />	
 					</div>
 					<div class="about-text">
+					<p>
 						"My first admin education was when I deployed the linux OS on my local machine and tried to trick the Grub bootloader&hellip; cause I forgot the root password."
+					</p>
 					</div>
 				</div>
 				<div class="about-body">
@@ -113,7 +123,9 @@
 						<img src="{% static 'img/LtQ9GzwBBMw.jpg' %}" />	
 					</div>
 					<div class="about-text">
+					<p>
 						"I fell in love when I saw the AES CBC operations scheme. But this is incomparable to what was when I met the other, CFB scheme. Like to break my head with crypto tasks."
+					</p>
 					</div>
 				</div>
 			</div>

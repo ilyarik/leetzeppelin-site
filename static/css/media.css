@@ -1,19 +1,22 @@
 @media screen and (max-width: 730px) {
 	.sitemap-marks {
-		margin-left: 14px;
+		margin-left: 2.5%;
 	}
+    .user-buttons {
+        margin-right: 2.5%;
+    }
     .menu-button {
     	font: 13px Arial;
     }
     .logo-area {
     	margin-left: 20px;
-    	width: 230px;
+    	width: 220px;
     }
     .logo-area h2 {
-    	font: 30px Arial;
+    	font-size: 30px;
     }
     .logo-area h5 {
-    	font: 14px Arial;
+    	font-size: 14px;
     }
     .search-field {
     	margin-right: 20px;

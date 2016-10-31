@@ -46,9 +46,8 @@ a:focus, button:focus {
 }
 
 .sitemap-marks {
-	margin-left: 60px;
+	margin-left: 10%;
 	padding-top: 7px;
-	width: 300px;
 	font-size: 13px;
 	display: inline-block;
 }
@@ -56,23 +55,16 @@ a:focus, button:focus {
 .sitemap-marks > a {
 	color: #666;
 	border-right: 1px solid #595959;
-	width: 80px;
 	display: inline-block;
 	text-align: center;
+	padding: 0 10px;
 }
 
-.sitemap-marks > a:last-child {
-	color: #666;
-	width: 70px;
-	display: inline-block;
-	text-align: center;
-}
 
 .user-buttons {
 	float: right;
-	margin-right: 60px;
+	margin-right: 10%;
 	padding-top: 7px;
-	width: 300px;
 	font-size: 13px;
 	color: #666;
 	display: inline-block;
@@ -81,10 +73,9 @@ a:focus, button:focus {
 .user-button {
 	float: right;
 	display: inline-block;
-	width: 100px;
+	padding: 0 10px;
 	border-left: 1px solid #595959;
 	line-height: 100%;
-	padding-left: 10px;
 	text-align: center;
 }
 
@@ -106,10 +97,10 @@ a:focus, button:focus {
 	position: relative;
 	color: #fff;
 	padding: 10px 0;
-	margin-left: 65px;
+	margin-left: 10%;
+	margin-top: 18px;
 	font: 36px Arial;
 	width: 280px;
-	margin-top: 18px;
 	height: 50px;
 }
 
@@ -132,14 +123,14 @@ a:focus, button:focus {
 }
 
 .search-field {
-	width: 308px;
+	width: 280px;
 	height :35px;
 	display: inline-block;
 	padding-right: 0px;
 	padding-left: 10px;
 	float: right;
+	margin-right: 10%;
 	margin-top: 55px;
-	margin-right: 65px;
 	background: linear-gradient(transparent, #272727 0%, #2C2C2C 100%);
 	border-radius: 5px;
 }
@@ -149,7 +140,7 @@ a:focus, button:focus {
 }
 
 .search-field input[type="search"] {
-	width: 240px;
+	width: 210px;
 	border: none; /* Убираем рамку */
 	outline: none; /* Убираем свечение в Chrome и Safari */
     -webkit-appearance: none; /* Убираем рамку в Chrome и Safari */
@@ -209,7 +200,7 @@ a:focus, button:focus {
 #content-wrapper {
 	flex: 1 0 auto;
 	margin-top: 270px;
-	padding: 0 4%;
+	padding: 0 10%;
 	float: left;
 	width: 100%;
 	margin-bottom: 50px;
@@ -297,8 +288,7 @@ a:focus, button:focus {
 
 .post-image img {
 	width: 100%;
-	min-height: 600px;
-	max-height: 800px;
+	height: 500px;
 }
 
 .post-continue {
@@ -317,50 +307,38 @@ a:focus, button:focus {
 }
 
 #pagination-wrapper {
-	float: left;
-	width: 100%;
-}
-
-#pagination {
+	width: 280px;
 	height: 60px;
-	width: 400px;
 	margin: auto;
 	margin-top: 20px;
 	background: linear-gradient(transparent, #454e58 0%, #1c2128 100%);
 	border-radius: 7px 7px 0 0;
-}
-
-#pagination a {
-	text-decoration: underline;
 	color: #ede9dc;
 	font-family: "Lucida Grande", Arial, sans-serif;
 }
 
-#pagination table {
-	width:;
+#pagination-table {
+	width: 100%;
+	padding: 0 40px;
 }
 
-#pagination-previous {
-	float: left;
+#pagination-previous, #pagination-next {
 	text-align: center;
 	line-height: 60px;
-	width: 110px;
+	width: 30%;
+	padding-top: 5px;
+}
+
+#pagination-previous a, #pagination-next a {
+	color: #ede9dc;
 }
 
 #pagination-current {
-	float: left;
 	text-align: center;
 	line-height: 60px;
-	width: 175px;
+	width: 35%;
 	color: #ede9dc;
 	font-family: "Lucida Grande", Arial, sans-serif;
-}
-
-#pagination-next {
-	float: right;
-	text-align: center;
-	line-height: 60px;
-	width: 110px;
 }
 
 #sidebar {
@@ -369,6 +347,7 @@ a:focus, button:focus {
 	border-radius: 8px;
 	width: 23%;
 	color: #ede9dc;
+	padding-right: 0;
 }
 
 #about-title {
@@ -393,6 +372,7 @@ a:focus, button:focus {
 	width: auto;
 	height: auto;
 	margin-right: 10px;
+	margin-bottom: 5px;
 }
 
 .about-image img {
@@ -441,7 +421,7 @@ a:focus, button:focus {
 
 .footer-icons {
 	position: absolute;
-	margin: 18px 4%;
+	margin: 18px 10%;
 }
 
 .footer-icons i {
@@ -450,7 +430,7 @@ a:focus, button:focus {
 
 .footer-body {
 	float: right;
-	margin: 0 4%;
+	margin: 0 10%;
 	line-height: 80px;
 	text-align: center;
 	color: #ede9dc;
@@ -473,8 +453,8 @@ a:focus, button:focus {
 	background: #eeeade;
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
-	width: 75%;
-	margin-left: 12%;
+	width: 80%;
+	margin-left: 10.5%;
 	float: left;
 }
 
@@ -485,9 +465,9 @@ a:focus, button:focus {
 	background: #eeeade;
 	border-radius: 8px;	
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
-	width: 75%;
+	width: 80%;
 	padding: 40px;
-	margin-left: 12%
+	margin-left: 10.5%
 }
 
 .comment {

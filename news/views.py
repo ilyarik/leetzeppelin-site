@@ -1,6 +1,7 @@
 #-*- coding: utf8 -*-
-from django.shortcuts import render, render_to_response, redirect, HttpResponse, Http404, get_object_or_404, get_list_or_404
+from django.shortcuts import render, redirect, HttpResponse, Http404, get_object_or_404, get_list_or_404
 from .models import *
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
 from .forms import *
@@ -38,7 +39,7 @@ def post(request, id):
 		add_comment = CommentForm(request.POST)
 		if add_comment.is_valid():
 			comment = PostComment()
-			comment.posted_by = UserProfile.objects.filter(username=current_user)[0]
+			comment.posted_by = User.objects.filter(username=current_user.username)[0]
 			comment.post = Post.objects.get(id=id)
 			comment.text_body = u'%s'%(request.POST["text_body"])
 			comment.time_post = datetime.datetime.now()
@@ -65,22 +66,25 @@ def post(request, id):
 		})
 
 def register(request):
-	new_user = UserProfile()
+	new_user = User()
 	if request.method == 'POST':
-		if UserProfile.objects.filter(username=request.POST['username']):
+		if User.objects.filter(username=request.POST['username']):
 			raise Http404("User already exist")
 		else:
 			new_user.username = request.POST['username']
 
 		new_user.password = make_password(request.POST['password'])
 		
-		if UserProfile.objects.filter(email=request.POST['email']):
+		if User.objects.filter(email=request.POST['email']):
 			raise Http404("Email already registered")
 		else:
 			new_user.email = request.POST['email']
 
 		new_user.save()
-		return redirect("/")
+
+		user = authenticate(username=request.POST['username'], password=request.POST['password'])
+		login(request, user)
+		return redirect('/')
 
 	return render(request, 'news/register.html', {
 		'registerForm' : UserRegisterForm,
@@ -109,51 +113,52 @@ def signOut(request):
 		logout(request)
 	return redirect("/")
 
-def profile(request, user):
-	user = get_list_or_404(UserProfile, username=user)[0] #user who page we see
+def profile(request, username):
+	user = get_object_or_404(User, username=username)
+	user_profile = get_object_or_404(UserProfile, user=user.id) #user who page we see
 	current_user = request.user 						#user who logged
-	if request.method == 'POST' and current_user.id == user.id:
+	if request.method == 'POST' and current_user.id == user_profile.id:
 		userProfileForm = UserProfileChangeForm(request.POST)
 		if userProfileForm.is_valid():
 			try:
-				user.avatar = request.FILES['avatar']
+				user_profile.avatar = request.FILES['avatar']
 			except:
 				pass
 
 			if request.POST['country']:
-				user.country = request.POST['country']
+				user_profile.country = request.POST['country']
 			else:
-				user.country = None
+				user_profile.country = None
 
 			if request.POST['gender']:
-				user.gender = request.POST['gender']
+				user_profile.gender = request.POST['gender']
 
 			if request.POST['birthday']:
-				user.birthday = request.POST['birthday']
+				user_profile.birthday = request.POST['birthday']
 			else:
-				user.birthday = None
+				user_profile.birthday = None
 
 			if request.POST['about']:
-				user.about = request.POST['about']
+				user_profile.about = request.POST['about']
 			else: 
-				user.about = None
+				user_profile.about = None
 				
-			user.save()
+			user_profile.save()
 			return redirect(request.META['HTTP_REFERER'])
 
-	if user.birthday:
-		birthday = user.birthday.strftime('%Y-%m-%d') 
+	if user_profile.birthday:
+		birthday = user_profile.birthday.strftime('%Y-%m-%d') 
 	else:
 		birthday = None
 
 	return render(request, 'news/profile.html', {
-		'user' : user,
+		'user' : user_profile,
 		'current_user' : current_user,
 		'current_date' : current_date,
 		'UserProfileChangeForm' : UserProfileChangeForm({
-			'country' : user.country,
-			'gender' : user.gender,
+			'country' : user_profile.country,
+			'gender' : user_profile.gender,
 			'birthday' : birthday,
-			'about' : user.about,
+			'about' : user_profile.about,
 			}),
 		})
