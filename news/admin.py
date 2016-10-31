@@ -6,14 +6,15 @@ from django.db import models
 from tinymce.widgets import TinyMCE
 
 class NewsForm(forms.ModelForm):
-	text_body = forms.CharField(widget=TinyMCE(mce_attrs={'width':'80%'}))
+	text_body = forms.CharField(widget=TinyMCE(mce_attrs={'width':'80%'}), label='Post')
+	posted_by = forms.ModelChoiceField(queryset=UserProfile.objects.filter(is_superuser=True))
 	class Meta:
 		model = Post
-		fields = ['title','image','text_body']
+		fields = ['title','image']
 		labels = {
 			'title' : 'Title your post',
 			'image' : 'You can attach the image',
-			'text_body' : 'Post',
+			'posted_by' : 'Posted by',
 		}
 	class Media:
 		js = (
@@ -23,10 +24,6 @@ class NewsForm(forms.ModelForm):
 
 class NewsAdmin(admin.ModelAdmin):
 	form = NewsForm
-	def save_model(self, request, obj, form, change):
-		if getattr(obj, 'posted_by', None) is None:
-			obj.posted_by = UserProfile.objects.filter(username=request.user.username)[0]
-			obj.save()
 
-admin.site.register(Post,NewsAdmin)
+admin.site.register(Post, NewsAdmin)
 admin.site.register(PostComment)
