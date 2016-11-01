@@ -3,15 +3,21 @@
 	<header id="header">
 		<div class="sitemap">
 			<div class="sitemap-marks">
-				<a class="sitemap-mark" tabindex=1 href="#">
-					Контакты		
-				</a>
-				<a class="sitemap-mark" tabindex=2 href="#">
-					Карта
-				</a>
-				<a class="sitemap-mark" tabindex=3 href="#">
-					Абоут
-				</a>
+				<div id="contacts-button">
+					<a tabindex=1 href="#">
+						Контакты		
+					</a>
+				</div>
+				<div id="map-button">
+					<a tabindex=2 href="#">
+						Карта
+					</a>
+				</div>
+				<div id="about-button">
+					<a tabindex=3 href="#">
+						Абоут
+					</a>
+				</div>
 			</div>
 			<div class="user-buttons">
 				{% if current_user.is_authenticated %}
@@ -36,6 +42,36 @@
 
 			</div>
 			
+		</div>
+		<div id="contacts-panel">
+		<div class="panel-icon"><i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></div>
+			<ul>
+				<li>
+					VKontakte: <a target="_blank" href="https://vk.com/ctf_vl">www.vk.com/ctf_vl</a>	
+				</li>
+				<li>
+					E-mail: <a target="_blank" href="mailto:ilyaribakov@mail.ru">ilyaribakov@mail.ru</a>
+				</li>
+			</ul>
+		</div>
+		<div id="map-panel">
+		<div class="panel-icon"><i class="fa fa-sitemap fa-2x" aria-hidden="true"></i></div>
+			<ul>
+				<li>
+					<a href="#">Full sitemap</a>
+					<ul>
+						<li>
+							<a href="/">News feed</a>
+						</li>
+					</ul>
+				</li>
+			</ul>	
+		</div>
+		<div id="about-panel">
+		<div class="panel-icon"><i class="fa fa-comments fa-2x" aria-hidden="true"></i></div>
+			<p>
+				Site of the mates of CTF LeetZeppelin's team. Made and supports with fire in the eyes.
+			</p>
 		</div>
 		<div class="header-body">
 			<div class="logo-area col-lg-6 col-md-6 col-sm-6 col-xs-6">

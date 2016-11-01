@@ -52,14 +52,22 @@ a:focus, button:focus {
 	display: inline-block;
 }
 
-.sitemap-marks > a {
+.sitemap-marks a {
 	color: #666;
+}
+
+#contacts-button, #map-button, #about-button {
 	border-right: 1px solid #595959;
 	display: inline-block;
 	text-align: center;
 	padding: 0 10px;
 }
 
+.active-button {
+	background: #eeeade;
+	border-radius: 8px 8px 0 0;
+	height: 30px;
+}
 
 .user-buttons {
 	float: right;
@@ -79,12 +87,39 @@ a:focus, button:focus {
 	text-align: center;
 }
 
-.user-button > a {
+.user-button a {
 	color: #666;
 }
 
-.user-button > a:hover {
-	text-decoration: underline;	
+.user-button a:hover {
+	text-decoration: underline;
+}
+
+#contacts-panel, #map-panel, #about-panel {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	width: 350px;
+	margin-left: 10%;
+	margin-top: -5px;
+	background: #eeeade;
+	border-radius: 8px;
+	box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+	padding: 10px 30px 10px 10px;
+}
+
+#contacts-panel a, #map-panel a, #about-panel a {
+	color: #666;
+}
+
+#contacts-panel p, #map-panel p, #about-panel p {
+	padding-left: 20px;
+}
+
+.panel-icon {
+	text-align: center;
 }
 
 .header-body {
@@ -210,7 +245,9 @@ a:focus, button:focus {
 	height: auto;
 	background: #eeeade;
 	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0px 0px 45px -3px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 45px -3px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 45px -3px rgba(0,0,0,0.75);
 }
 
 .post {
@@ -452,7 +489,9 @@ a:focus, button:focus {
 	height: auto;
 	background: #eeeade;
 	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0px 0px 45px -3px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 45px -3px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 45px -3px rgba(0,0,0,0.75);
 	width: 80%;
 	margin-left: 10.5%;
 	float: left;
