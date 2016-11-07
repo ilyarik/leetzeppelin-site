@@ -1,3 +1,5 @@
+{% load static %}
+
 {% block header %}
 	<div id="header-wrapper">
 	<header id="header">
@@ -5,17 +7,17 @@
 			<div class="sitemap-marks">
 				<div id="contacts-button">
 					<a tabindex=1 href="#">
-						Контакты		
+						Contacts	
 					</a>
 				</div>
 				<div id="map-button">
 					<a tabindex=2 href="#">
-						Карта
+						Sitemap
 					</a>
 				</div>
 				<div id="about-button">
 					<a tabindex=3 href="#">
-						Абоут
+						About
 					</a>
 				</div>
 			</div>
@@ -50,7 +52,7 @@
 					VKontakte: <a target="_blank" href="https://vk.com/ctf_vl">www.vk.com/ctf_vl</a>	
 				</li>
 				<li>
-					E-mail: <a target="_blank" href="mailto:ilyaribakov@mail.ru">ilyaribakov@mail.ru</a>
+					E-mail: <a target="_blank" href="mailto:leetzeppelin@gmail.com">leetzeppelin@gmail.com</a>
 				</li>
 			</ul>
 		</div>
@@ -70,17 +72,17 @@
 		<div id="about-panel">
 		<div class="panel-icon"><i class="fa fa-comments fa-2x" aria-hidden="true"></i></div>
 			<p>
-				Site of the mates of CTF LeetZeppelin's team. Made and supports with fire in the eyes.
+				Site of the mates of CTF LeetZeppelin's team. Made and supports with fire in the eyes. 
 			</p>
 		</div>
 		<div class="header-body">
-			<div class="logo-area col-lg-6 col-md-6 col-sm-6 col-xs-6">
-				<a href="/">
-					<h2>Leet Zeppelin</h2>
-					<h5>Команда мечты вступай скорей мы ждём тебя здесь</h5>
-				</a>
+			<div id="logo-image">
+					<a href="/"><img src="{% static 'img/zeppelin.png' %}"></a>
 			</div>
-			<div class="search-field col-lg-6 col-md-6 col-sm-6 col-xs-6">
+			<div id="logo-text">
+				<h3>Dream team of the balloon.</h3>
+			</div>
+			<div class="search-field">
 				<input type="search" tabindex=4 placeholder="Search">
 				<a href="#"><button type="submit"><i class="fa fa-lg fa-search" aria-hidden="true"></i></button></a>
 			</div>

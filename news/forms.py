@@ -38,6 +38,6 @@ class UserProfileChangeForm(forms.ModelForm):
 		fields = ['avatar','birthday','about','gender','country']
 		widgets = {
             'birthday': forms.DateInput(attrs={'title' : 'Input birth date in "YYYY-MM-dd" format.'}),
-            'about': forms.Textarea(),
+            'about': forms.Textarea(attrs={'rows':3,'style':'resize:vertical'}),
             'country': CountrySelectWidget()
         }

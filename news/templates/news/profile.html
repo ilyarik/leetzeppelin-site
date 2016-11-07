@@ -21,9 +21,8 @@
 	<div id="content-wrapper">
 		<div id="news-feed-alone">
 		<div id="profile-content">
-			<table>
-				<tr>
-					<td>
+			
+				
 					<div id="user-main-photo">
 						{% if user.avatar %}
 						<img src="{{ user.avatar.url }}" />
@@ -31,85 +30,79 @@
 						<img src="{{ MEDIA_URL }}news/default-avatar.png" />
 						{% endif %}
 					</div>
+				
+				<div id="user-name">
+					{{ user.user.username }}
+				</div>
+
+				
+				{% if current_user.id == user.id %}
+				<form method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div id="profile-avatar">
+					<p>
+						<label>Avatar:</label>
+							{{ UserProfileChangeForm.avatar.errors }}
+							{{ UserProfileChangeForm.avatar }}
+					</p>
+					</div>
+				{% endif %}
+				
 					{% if current_user.id == user.id %}
-					<form method="POST" enctype="multipart/form-data">
-						{% csrf_token %}
-						{{ UserProfileChangeForm.avatar.errors }}
-						{{ UserProfileChangeForm.avatar }}
-					{% endif %}
-					</td>
-					<td>
-					<ul>
-						<li>
-							<div id="user-name">
-								{{ user }}
-							</div>
-						</li>
-						<li>
-							{% if current_user.id == user.id %}
-							<div id="profile-country">
-								<label>Country:</label> 
-								{{ UserProfileChangeForm.country }}
-							</div>
-							{% elif user.country %}
-							<div id="profile-country">
-								<label>Country:</label> 
-								{{ user.country.name }} <img src="{{ user.country.flag }}">
-							</div>
-							{% endif %}	
-						</li>
-						<li>
-							{% if current_user.id == user.id %}
-							<div id="profile-gender">
-								<label>Gender:</label> 
-								{{ UserProfileChangeForm.gender }}
-							</div>
-							{% elif user.gender %}
-							<div id="profile-gender">
-								<label>Gender:</label> {{ user.get_gender_display }}
-							</div>
-							{% endif %}
-						</li>
-						<li>
-							{% if current_user.id == user.id %}
-							<div id="birthday-date">
-								<label>Birthday:</label> 
-								{{ UserProfileChangeForm.birthday.errors }}
-								{{ UserProfileChangeForm.birthday }}
-							</div>
-							{% elif user.birthday %}
-								<label>Birthday:</label> {{ user.birthday }}
-							{% endif %}
-						</li>
-					</ul>
-					</td>					
-				</tr>
-				<tr>
-				<td colspan="2">
-					{% if current_user.id == user.id or user.about %}
-					<div id="user-about-title">
-						About:
+						<div id="profile-country">
+							<label>Country:</label> 
+							{{ UserProfileChangeForm.country }}
+						</div>
+					{% elif user.country %}
+						<div id="profile-country">
+							<label>Country:</label> {{ user.country.name }} <img src="{{ user.country.flag }}">
+						</div>
+					{% endif %}	
+
+					{% if current_user.id == user.id %}
+					<div id="profile-gender">
+						<label>Gender:</label> 
+						{{ UserProfileChangeForm.gender }}
+					</div>
+					{% elif user.gender %}
+					<div id="profile-gender">
+						<label>Gender:</label> {{ user.get_gender_display }}
 					</div>
 					{% endif %}
-					<div id="user-about-body">
+
 					{% if current_user.id == user.id %}
-						{{ UserProfileChangeForm.about.errors }}
-						{{ UserProfileChangeForm.about|default:user.about }}
-					{% else %}
-						{% if user.about %}
+					<div id="profile-birthday">
+						<label>Birthday:</label> 
+						{{ UserProfileChangeForm.birthday.errors }}
+						{{ UserProfileChangeForm.birthday }}
+					</div>
+					{% elif user.birthday %}
+						<label>Birthday:</label> {{ user.birthday }}
+					{% endif %}
+
+					{% if current_user.id == user.id or user.about %}
+					<div id="user-about">
+					<p><label>About:</label>
+						{% if current_user.id == user.id %}
+							{{ UserProfileChangeForm.about.errors }}
+							{{ UserProfileChangeForm.about|default:user.about }}
+						{% else %}
 							{{ user.about }}
 						{% endif %}
-					{% endif %}
+					</p>
 					</div>
+					{% endif %}
 					{% if current_user.id == user.id %}
 						<div id="submit-button">
 							<input type="submit" value="Apply changes">	
 						</div>
 					{% endif %}
-					</form>
-				</td>
-				</tr>
-			</table>
+
+				{% if current_user.id == user.id %}
+				</form>
+				{% endif %}
+				
+			
 		</div>
 		</div>
 	</div>

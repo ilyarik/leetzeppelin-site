@@ -1,32 +1,51 @@
-@media screen and (max-width: 730px) {
-	.sitemap-marks {
-		margin-left: 2.5%;
-	}
-    .user-buttons {
+@media screen and (max-width: 980px) {
+    .sitemap-marks, #logo-image, .footer-icons {
+        margin-left: 2.5%;
+    }
+    .user-buttons, .search-field, .footer-body {
         margin-right: 2.5%;
     }
-    .menu-button {
-    	font: 13px Arial;
+    #content-wrapper {
+        padding: 0 2.5%;
     }
-    .logo-area {
-    	margin-left: 20px;
-    	width: 220px;
-    }
-    .logo-area h2 {
-    	font-size: 30px;
-    }
-    .logo-area h5 {
-    	font-size: 14px;
-    }
-    .search-field {
-    	margin-right: 20px;
-    	width:140px;
-    }
-    .search-field input[type="search"] {
-    	width: 100px;
-    }
-    .search-field button[type="submit"] {
-    	width: 20px;
+    .about-image {
+        width: 100%;
     }
 
+}
+
+@media screen and (max-width: 768px) {
+    #contacts-button, #map-button, #about-button {
+        padding: 0 5px;
+        font-size: 0.85em;
+    }
+    .user-button {
+        padding: 0 5px;
+        font-size: 0.85em;
+    }
+    .menu-button {
+        font: 13px Arial;
+    }
+    #logo-text {
+        display: none;
+    }
+    #logo-image {
+        width: 40%;
+    }
+    .search-field {
+        width: 140px;
+        min-width: 140px;
+    }
+    .search-field input[type="search"] {
+        width: 100px;
+    }
+    .search-field button[type="submit"] {
+        width: 20px;
+    }
+    .post-title h3 {
+        font-size: 1.7em;
+    }
+    .comment-info a {
+        font-size: 1em;
+    }
 }
