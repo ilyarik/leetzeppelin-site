@@ -53,7 +53,7 @@ class UserProfile(models.Model):
 		('F', 'Female'),
 		('O', 'Other'),
 	)
-	user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+	user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True, on_delete=models.CASCADE)
 	gender = models.CharField(default='M', max_length=1, choices=GENDER_CHOICES)
 	birthday = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
 	avatar = models.ImageField(upload_to="news", null=True, blank=True, default=None)
@@ -67,11 +67,9 @@ class UserProfile(models.Model):
 	def __str__(self):
 		return self.user.username
 
-@receiver(post_save, sender=User)
-def create_user_userprofile(sender, instance, created, **kwargs):
-	if created:
-		UserProfile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_userprofile(sender, instance, **kwargs):
-	instance.userprofile.save()
+def create_profile(sender, **kwargs):
+    user = kwargs["instance"]
+    if kwargs["created"]:
+        up = UserProfile(user=user)
+        up.save()
+post_save.connect(create_profile, sender=User)
