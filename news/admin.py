@@ -26,6 +26,14 @@ class NewsForm(forms.ModelForm):
 
 class NewsAdmin(admin.ModelAdmin):
 	form = NewsForm
+
+class UserProfileInline(admin.StackedInline):
+	model = UserProfile
+
+class UserProfileAdmin(BaseUserAdmin):
+	inlines = (UserProfileInline, )
 	
+admin.site.unregister(User)
+admin.site.register(User, UserProfileAdmin)
 admin.site.register(Post, NewsAdmin)
 admin.site.register(PostComment)
