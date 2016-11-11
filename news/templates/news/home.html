@@ -20,14 +20,13 @@
 {% endblock %}
 
 	<div id="content-wrapper">
-		<div id="news-feed" class="col-lg-9 col-md-9 col-sm-9 col-xs-12 
-		">
+		<div id="news-feed" class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 			{% for post in posts %}
 			<div class="post">
 				<div class="post-head">
 					<div class="post-photo">
-						{% if post.posted_by.avatar %}
-						<img src="{{ post.posted_by.avatar.url }}">
+						{% if post.posted_by.userprofile.avatar %}
+						<img src="{{ post.posted_by.userprofile.avatar.url }}">
 						{% else %}
 						<img src="{{ MEDIA_URL }}news/default-avatar.png">
 						{% endif %}

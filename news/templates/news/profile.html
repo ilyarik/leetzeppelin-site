@@ -21,87 +21,81 @@
 	<div id="content-wrapper">
 		<div id="news-feed-alone">
 		<div id="profile-content">
+
+			<div id="user-main-photo">
+				{% if user.avatar %}
+				<img src="{{ user.avatar.url }}" />
+				{% else %}
+				<img src="{{ MEDIA_URL }}news/default-avatar.png" />
+				{% endif %}
+			</div>
 			
+			<div id="user-name">
+				{{ user.user.username }}
+			</div>
+
 				
-					<div id="user-main-photo">
-						{% if user.avatar %}
-						<img src="{{ user.avatar.url }}" />
-						{% else %}
-						<img src="{{ MEDIA_URL }}news/default-avatar.png" />
-						{% endif %}
-					</div>
-				
-				<div id="user-name">
-					{{ user.user.username }}
+			{% if current_user.id == user.user.id %}
+			<form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div id="profile-avatar">
+				<p>
+					<label>Avatar:</label>
+					{{ UserProfileChangeForm.avatar.errors }}
+					{{ UserProfileChangeForm.avatar }}
+				</p>
 				</div>
+				<div id="profile-country">
+					<label>Country:</label> 
+					{{ UserProfileChangeForm.country }}
+				</div>				
+				<div id="profile-gender">
+					<label>Gender:</label> 
+					{{ UserProfileChangeForm.gender }}
+				</div>
+				<div id="profile-birthday">
+					<label>Birthday:</label> 
+					{{ UserProfileChangeForm.birthday.errors }}
+					{{ UserProfileChangeForm.birthday }}
+				</div>
+				<div id="user-about">
+				<p><label>About:</label>
+					{{ UserProfileChangeForm.about.errors }}
+					{{ UserProfileChangeForm.about|default:user.about }}
+				</p>
+				</div>
+				<div id="submit-button">
+					<input type="submit" value="Apply changes">	
+				</div>
+			</form>
+			{% else %}
 
-				
-				{% if current_user.id == user.id %}
-				<form method="POST" enctype="multipart/form-data">
-					{% csrf_token %}
-					<div id="profile-avatar">
-					<p>
-						<label>Avatar:</label>
-							{{ UserProfileChangeForm.avatar.errors }}
-							{{ UserProfileChangeForm.avatar }}
-					</p>
-					</div>
+				{% if user.country %}
+				<div id="profile-country">
+					<label>Country:</label>
+					{{ user.country.name }} <img src="{{ user.country.flag }}">
+				</div>
 				{% endif %}
-				
-					{% if current_user.id == user.id %}
-						<div id="profile-country">
-							<label>Country:</label> 
-							{{ UserProfileChangeForm.country }}
-						</div>
-					{% elif user.country %}
-						<div id="profile-country">
-							<label>Country:</label> {{ user.country.name }} <img src="{{ user.country.flag }}">
-						</div>
-					{% endif %}	
-
-					{% if current_user.id == user.id %}
-					<div id="profile-gender">
-						<label>Gender:</label> 
-						{{ UserProfileChangeForm.gender }}
-					</div>
-					{% elif user.gender %}
-					<div id="profile-gender">
-						<label>Gender:</label> {{ user.get_gender_display }}
-					</div>
-					{% endif %}
-
-					{% if current_user.id == user.id %}
-					<div id="profile-birthday">
-						<label>Birthday:</label> 
-						{{ UserProfileChangeForm.birthday.errors }}
-						{{ UserProfileChangeForm.birthday }}
-					</div>
-					{% elif user.birthday %}
-						<label>Birthday:</label> {{ user.birthday }}
-					{% endif %}
-
-					{% if current_user.id == user.id or user.about %}
-					<div id="user-about">
-					<p><label>About:</label>
-						{% if current_user.id == user.id %}
-							{{ UserProfileChangeForm.about.errors }}
-							{{ UserProfileChangeForm.about|default:user.about }}
-						{% else %}
-							{{ user.about }}
-						{% endif %}
-					</p>
-					</div>
-					{% endif %}
-					{% if current_user.id == user.id %}
-						<div id="submit-button">
-							<input type="submit" value="Apply changes">	
-						</div>
-					{% endif %}
-
-				{% if current_user.id == user.id %}
-				</form>
+				{% if user.gender %}
+				<div id="profile-gender">
+					<label>Gender:</label>
+					{{ user.get_gender_display }}
+				</div>
 				{% endif %}
-				
+				{% if user.birthday %}
+				<div id="profile-birthday">
+					<label>Birthday:</label> {{ user.birthday }}
+				</div>
+				{% endif %}
+				{% if user.about %}
+				<div id="user-about">
+				<p>
+					<label>About:</label>
+					{{ user.about }}
+				</p>
+				</div>
+				{% endif %}
+			{% endif %}			
 			
 		</div>
 		</div>
