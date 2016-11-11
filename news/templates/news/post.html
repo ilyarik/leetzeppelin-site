@@ -24,7 +24,7 @@
 			<div class="post-alone">
 				<div class="post-head">
 					<div class="post-photo">
-					{% if post.posted_by.avatar %}<img src="{{ post.posted_by.avatar.url }}" />
+					{% if post.posted_by.userprofile.avatar %}<img src="{{ post.posted_by.userprofile.avatar.url }}" />
 					{% else %}<img src="{{ MEDIA_URL }}news/default-avatar.png" />
 					{% endif %}
 					
@@ -56,7 +56,7 @@
 				<div class="comment">
 					<div class="comment-photo">
 						<a href="/profile/{{ comment.posted_by.username }}">
-						{% if comment.posted_by.avatar %}<img src="{{ comment.posted_by.avatar.url }}" />
+						{% if comment.posted_by.userprofile.avatar %}<img src="{{ comment.posted_by.userprofile.avatar.url }}" />
 						{% else %} <img src="{{ MEDIA_URL }}news/default-avatar.png" />
 						{% endif %}
 						</a>

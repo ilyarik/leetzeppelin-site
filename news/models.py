@@ -17,6 +17,7 @@ class Post(models.Model):
 		on_delete=models.CASCADE,
 		null=True,
 		blank=True,
+		related_name="posted_by"
 		)
 	num_of_comments = models.IntegerField(default=0)
 
