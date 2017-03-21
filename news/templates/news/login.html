@@ -6,7 +6,11 @@
 <body>
 	<form method="POST" action="">
 	    {% csrf_token %}
-	    {{ loginForm }}
+	    {% for input in loginForm %}
+	    <p title="{{ input.help_text }}">
+	    	{{ input.label }} {{ input }}
+	    </p>
+	    {% endfor %}
 	    <input type="submit" value="Sign in">	
 	</form>
 </body>

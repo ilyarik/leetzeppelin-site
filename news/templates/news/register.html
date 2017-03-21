@@ -6,7 +6,11 @@
 <body>
 	<form method="POST" action="">
     {% csrf_token %}
-    {{ registerForm }}
+    {% for input in registerForm %}
+    <p title="{{ input.help_text }}">
+    {{ input.label }} {{ input }}
+    </p>
+    {% endfor %}
     <input type="submit" value="Sign up">
 </form>
 </body>

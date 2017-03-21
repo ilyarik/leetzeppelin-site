@@ -3,6 +3,8 @@ from django import forms
 from .models import *
 from django_countries.widgets import CountrySelectWidget
 from tinymce.widgets import TinyMCE
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+import datetime
 
 class CommentForm(forms.ModelForm):
 	class Meta:
@@ -15,29 +17,21 @@ class CommentForm(forms.ModelForm):
 			'text_body': '',
 		}
 
-class UserRegisterForm(forms.ModelForm):
+class UserRegisterForm(UserCreationForm):
 	class Meta:
 		model = User
-		fields = ['username','password','email']
-		widgets = {
-			'password': forms.PasswordInput,
-			'email': forms.EmailInput,
-		}
+		fields = UserCreationForm.Meta.fields + ('email',)
 
-class UserLoginForm(forms.ModelForm):
+class UserLoginForm(AuthenticationForm):
 	class Meta:
 		model = User
-		fields = ['username','password']
-		widgets = {
-			'password': forms.PasswordInput,
-		}
 
 class UserProfileChangeForm(forms.ModelForm):
 	class Meta:
 		model = UserProfile
 		fields = ['avatar','birthday','about','gender','country']
 		widgets = {
-            'birthday': forms.DateInput(attrs={'title' : 'Input birth date in "YYYY-MM-dd" format.'}),
-            'about': forms.Textarea(attrs={'rows':3,'style':'resize:vertical'}),
-            'country': CountrySelectWidget()
-        }
+			'birthday': forms.SelectDateWidget(years=range(1900,datetime.date.today().year)),
+			'about': forms.Textarea(attrs={'rows':3,'style':'resize:vertical'}),
+			'country': CountrySelectWidget()
+		}

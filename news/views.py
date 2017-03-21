@@ -8,7 +8,6 @@ from .forms import *
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
-from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
 current_date = datetime.date.today()
@@ -73,7 +72,11 @@ def register(request):
 		else:
 			new_user.username = request.POST['username']
 
-		new_user.password = make_password(request.POST['password'])
+		if request.POST['password1'] == request.POST['password2']:
+			password = request.POST['password1']
+			new_user.password = make_password(password)
+		else:
+			raise Http404("Passwords does not match")
 		
 		if User.objects.filter(email=request.POST['email']):
 			raise Http404("Email already registered")
@@ -82,7 +85,7 @@ def register(request):
 
 		new_user.save()
 
-		user = authenticate(username=request.POST['username'], password=request.POST['password'])
+		user = authenticate(username=request.POST['username'], password=password)
 		login(request, user)
 		return redirect('/')
 
@@ -117,7 +120,7 @@ def profile(request, username):
 	user = get_object_or_404(User, username=username)
 	user_profile = get_object_or_404(UserProfile, user=user.id) #user who page we see
 	current_user = request.user 						#user who logged
-	if request.method == 'POST' and current_user.id == user_profile.id:
+	if request.method == 'POST' and current_user.id == user.id:
 		userProfileForm = UserProfileChangeForm(request.POST)
 		if userProfileForm.is_valid():
 			try:
@@ -133,8 +136,11 @@ def profile(request, username):
 			if request.POST['gender']:
 				user_profile.gender = request.POST['gender']
 
-			if request.POST['birthday']:
-				user_profile.birthday = request.POST['birthday']
+			if request.POST['birthday_day'] and request.POST['birthday_month'] and request.POST['birthday_year']:
+				day = request.POST['birthday_day']
+				month = request.POST['birthday_month']
+				year = request.POST['birthday_year']
+				user_profile.birthday = '%s-%s-%s' % (year,month,day)
 			else:
 				user_profile.birthday = None
 
