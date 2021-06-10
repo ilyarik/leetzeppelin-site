@@ -1,4 +1,4 @@
-Django==1.10
+Django==2.2.24
 Pillow==3.3.1
 PyMySQL==0.7.6
 django-countries==4.0
